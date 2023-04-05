@@ -176,7 +176,7 @@ double IndTest(byte &precision){
 void MeasureInd(){
     //Define Precision of filter
     byte precision = 1; //max 255
-    unsigned short cooldown 1000;
+    unsigned int cooldown = 1000;
 
     //Process the Time and convert to L val
     double T = IndTest(precision); //time in microsec
