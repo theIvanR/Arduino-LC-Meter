@@ -20,4 +20,9 @@ To wire the barebones configuration of the LC meter, connect the following pins:
     Pin A5: Mode Selection pin
     Pin A2: Autoranging Capacitor Positive test pin
     Pin A0: Autoranging Capacitor Negative pin
-
+    
+    Connect Pin 11 to a generic fast-ish diode (such as the BA159 or any other similar diode) in series with a 220 Ohm-ish resistor to limit current. This will be connected to the LC circuit with an unknown inductance and known capacitance.
+    Connect the ground and high pins of the comparator through a precision 47 kOhm resistor or potentiometer tuned to this value. This setup offers an improvement over other designs as it provides the ability for external hardware calibration.
+    Connect Pin 7 to the ground reference for the internal comparator, and connect Pin 6 to the HIGH input for the internal comparator.
+    Connect Pin A5 to the mode selection pin.
+    Connect Pin A2 to the capacitor positive test pin, and Pin A0 to the capacitor negative pin.
