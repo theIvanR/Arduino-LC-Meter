@@ -1,0 +1,3 @@
+// This code is based on the "Two Pin" capacitance tester and RobotZer0's idea of using the internal comparator, as described in their respective projects:
+// - https://www.youtube.com/watch?v=MWNOtT7svuM&t=60s
+// - https://www.circuitbasics.com/how-to-make-an-arduino-capacitance-meter/
