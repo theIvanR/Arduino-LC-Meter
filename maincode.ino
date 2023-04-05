@@ -17,7 +17,7 @@
     const float IN_CAP_TO_GND  = IN_STRAY_CAP_TO_GND;
     const float R_PULLUP = 34.8;
 
-    float ZERO = 0; //zero capacitance, fix later, add autorgne
+    float ZERO = 0;//0.217; //zero capacitance, fix later, add autorgne
 
 //Switchpin for changing modes
     const int SWITCH_PIN = A5;
@@ -39,37 +39,43 @@ void setup(){
     Serial.begin(115200);
 
   //Internal Capacitor Compenstation
+    Serial.println(F("Internal Capacitance Calibration Success"));
+    MeasureCap(); //calls to show old value, some sort of bug here if I do it in one function
+    delay(100);
     ZeroCap();
-    Serial.println("Internal Capacitance Calibration Success");
+
+    //Serial.println(ZERO);
 }
 
 //Pre Zero Capacitor Value
 void ZeroCap(){
-//Measure the capactitance a bunch of times and set it to zero
-    pinMode(IN_PIN, INPUT);
-    digitalWrite(OUT_PIN, HIGH);
-    unsigned int val = analogRead(IN_PIN);
-    digitalWrite(OUT_PIN, LOW);
+    //Define the Precicision of calibration and delay
+    byte precision = 20;
+    byte cooldown = 100;
 
-    //val must be below 1000 (ie pF range)
-        pinMode(IN_PIN, OUTPUT);
+    //For loop to iterate conditions
+    for(byte i = 0; i<precision; i++){
+        delay(cooldown);
 
-        byte Precision = 50;
+        //Define the output pins for reading the capacitance
+        pinMode(IN_PIN, INPUT); digitalWrite(OUT_PIN, HIGH);
+        unsigned int val = analogRead(IN_PIN);
+        digitalWrite(OUT_PIN, LOW); pinMode(IN_PIN, OUTPUT);
 
-        for(byte i=0; i<=Precision; i++){
-            ZERO += (float)val * IN_CAP_TO_GND / (float)(MAX_ADC_VALUE - val);
-            delay(50); //cooldown
-        }
-        ZERO = ZERO / (float) Precision;
-}
+        ZERO += (float)val * IN_CAP_TO_GND / (float)(MAX_ADC_VALUE - val);
+  }
+
+  ZERO /= (float) precision;
+
+ }
 
 //Measure Capacitor Value and apply Zeroing
 void MeasureCap(){
+
     //Define the output pins for reading the capacitance
-        pinMode(IN_PIN, INPUT);
-        digitalWrite(OUT_PIN, HIGH);
+        pinMode(IN_PIN, INPUT); digitalWrite(OUT_PIN, HIGH);
         unsigned int val = analogRead(IN_PIN);
-        digitalWrite(OUT_PIN, LOW);
+        digitalWrite(OUT_PIN, LOW); pinMode(IN_PIN, OUTPUT);
 
     float capacitance;
 
@@ -170,23 +176,24 @@ double IndTest(byte &precision){
 void MeasureInd(){
     //Define Precision of filter
     byte precision = 1; //max 255
+    unsigned short cooldown 1000;
 
     //Process the Time and convert to L val
     double T = IndTest(precision); //time in microsec
 
-    if(T==-1) Serial.println("(/) "); //NO Inductor connected
+    if(T==-1) Serial.println(F("(/) ")); //NO Inductor connected
 
     else {
-        if(T<100) Serial.print("(!) "); //Low value, recommend using larger capacitor
+        if(T<100) Serial.print(F("(!) ")); //Low value, recommend using larger capacitor
         //Serial.print(T); Serial.print(" ");
 
     //Solve for L
         T = (T*T) / ( 4.0 * pipi * C);//convert to inductance
         T *= 1; //uH
-        Serial.print(T); Serial.println(" uH");
+        Serial.print(T); Serial.println(F(" uH"));
     }
 
-    delay(1000); //cooldown
+    delay(cooldown); //cooldown
 }
 
 
@@ -197,4 +204,3 @@ void loop(){
     if(val) MeasureInd(); //Ind Mode
     else MeasureCap(); //Cap Mode
 }
-
