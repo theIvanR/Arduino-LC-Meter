@@ -8,6 +8,9 @@ To solve this problem, I decided to create my own LC meter using an Arduino and 
 # Features:
 My code improves upon existing methods by adding rudimentary autoranging, internal calibration/zeroing of the test capacitance, low pass filtering, and integration averaging. These features improve the accuracy of the measurement by reducing statistical noise and increasing the precision by removing the offset component from capacitance measurement.
 
+# Known Issues: 
+The capacitance value for the frequency counter needs to be as precisely valued as possible for accuarate results. If the capacitance indicator displays an exclamation mark, the measurement may be innacurate due to a high resonance frequency, consider using a larger capacitor value to slow down the resonance frequency to enable more precise measurements.
+
 # Future Plans:
 While I aim to keep this project as barebones as possible for easy implementation, I plan to create a second code file in the future that includes more advanced features. These may include more advanced reference calibration capability (utilizing newtonian or other polynomial weight functions which will be stored in the EEPROM and can be called by a smart calibration function) and support for LCDs. Additionally, I plan to implement the ability to measure ESR of a capacitor directly.
 
