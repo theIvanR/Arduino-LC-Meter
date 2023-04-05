@@ -8,10 +8,9 @@ How to wire?
   Barebones Configuration: 
   ->Pin 11: Pulse pin
 
-  ->Pin 7: GND reference for internal compartor
-
+  ->Pin 7: GND reference for internal compartor 
   ->Pin 6: HIGH input for internal compartor
-  
+ 
   ->Pin A5: Mode Selection pin
   
   ->Pin A2: Autoranging Capacitor Positive test pin
