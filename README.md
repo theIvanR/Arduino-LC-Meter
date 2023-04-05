@@ -19,5 +19,5 @@ To wire the barebones configuration of the LC meter, connect the following pins:
     Pin 6: HIGH input for internal comparator
     Pin A5: Mode Selection pin
     Pin A2: Autoranging Capacitor Positive test pin
-    Pin A1: Autoranging Capacitor Negative pin
+    Pin A0: Autoranging Capacitor Negative pin
 
