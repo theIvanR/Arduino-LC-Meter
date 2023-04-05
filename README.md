@@ -3,7 +3,7 @@
 # Introduction:
 When I set out to measure inductances using an Arduino, I found that existing methods were either overcomplicated (requiring an external shield) or cumbersome and inaccurate (using an external comparator). Additionally, these methods were limited in their ability to measure capacitances within a wide range.
 
-To solve this problem, I decided to create my own LC meter using an Arduino and only passive external components. By combining the "Two Pin" capacitance tester with RobotZer0's idea of using the internal comparator, I was able to develop a truly self-contained LC meter with internal calibration.
+To solve this problem, I decided to create my own LC meter using an Arduino and only passive external components. By combining the "Two Pin" capacitance tester with RobotZer0's idea of using the internal comparator, I was able to develop a truly self-contained LC meter with internal calibration and autoranging capability.
 
 # Features:
 My code improves upon existing methods by adding rudimentary autoranging, internal calibration/zeroing of the test capacitance, low pass filtering, and integration averaging. These features improve the accuracy of the measurement by reducing statistical noise and increasing the precision by removing the offset component from capacitance measurement.
